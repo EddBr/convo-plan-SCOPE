@@ -23,8 +23,7 @@ human_sim:
 human_eval:
   type: local
   model_config:
-    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
-
+    pretrained_model_name_or_path: mistralai/Mistral-7B-Instruct-v0.3
     device_map: 1
     # load_in_8bit: True
     attn_implementation: "flash_attention_2"
