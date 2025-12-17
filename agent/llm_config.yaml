@@ -24,6 +24,7 @@ human_eval:
   type: local
   model_config:
     pretrained_model_name_or_path: mistralai/Mistral-Nemo-Instruct-2407
+    device_map: 1
     # load_in_8bit: True
     attn_implementation: "flash_attention_2"
   generation_config:
