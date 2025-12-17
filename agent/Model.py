@@ -77,7 +77,7 @@ def create_human_and_llm(config="agent/llm_config.yaml",human_sim_to_use="human_
         llm_config = yaml.full_load(f)
     llm_config[llm_model_to_use]["model_config"]["device_map"] = cuda
     llm_config[human_sim_to_use]["model_config"]["device_map"] = cuda
-    llm_config[human_eval_to_use]["model_config"]["device_map"] = cuda
+    llm_config[human_eval_to_use]["model_config"]["device_map"] = 1#cuda
     models = []
     models_to_use = [human_sim_to_use, human_eval_to_use, llm_model_to_use]
     for model, model_type in zip(models_to_use, [HUMAN_SIM, HUMAN_EVAL, LLM]):
