@@ -1,3 +1,4 @@
+import os
 from reward.Base_Reward import Base_Reward
 from typing import List
 from transformers import AutoTokenizer, AutoModelForCausalLM

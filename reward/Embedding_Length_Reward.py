@@ -1,8 +1,10 @@
-
 from reward.Base_Reward import Base_Reward
 import torch
 import torch.nn as nn
 from token_count import TokenCount
+import tiktoken
+import os
+os.environ["TIKTOKEN_CACHE_DIR"] = "/home/s2289391/tiktoken_cache"
 
 from agent.Conversation import Conversation
 class MLPRegression(nn.Module):
@@ -62,6 +64,19 @@ class Embedding_Length_Reward(Base_Reward):
         print("reward from embedding length: ", reward)
         return reward * 10
     
-    def get_tokens_from_str(self, convo : str) -> float:
-        tc = TokenCount(model_name="gpt-3.5-turbo")
-        return tc.num_tokens_from_string(convo)/100
+    def get_tokens_from_str(self, convo: str) -> float:
+        # Use the local tokenizer you already downloaded
+        from transformers import AutoTokenizer
+        
+        # Path to your local repaired tokenizer folder
+        local_path = "/home/s2289391/llama-3.2-1b"
+        
+        try:
+            # We load it once; in a production script, you'd move the 'tokenizer' 
+            # initialization to the class __init__ to make it even faster.
+            tokenizer = AutoTokenizer.from_pretrained(local_path, use_fast=True)
+            return len(tokenizer.encode(convo)) / 100.0
+        except Exception as e:
+            # Fallback: if tokenizer fails, use a rough char-based estimate 
+            # so the whole MCTS doesn't crash
+            return len(convo) / 4 / 100.0

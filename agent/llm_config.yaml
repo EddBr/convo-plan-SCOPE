@@ -2,15 +2,15 @@ name: Llama-3
 human_sim:
   type: local
   model_config:
-    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
+    pretrained_model_name_or_path: /home/s2289391/llama-3.2-1b
     # load_in_8bit: True
     attn_implementation: "flash_attention_2"
   generation_config:
     max_new_tokens: 500
 
     # Beam search params
-    num_beams: 5              # Number of beams to consider
-    num_beam_groups: 5        # Number of beam groups (tries to encourage diversity between groups). Must be leq num_beams
+    num_beams: 10              # Number of beams to consider
+      #num_beam_groups: 5        # Number of beam groups (tries to encourage diversity between groups). Must be leq num_beams
     num_return_sequences: 5   # Number of samples to return. Must be leq num_beams
     diversity_penalty: 1.0    # Subtracted from a beam’s score if it generates a token same as any beam from other group at a particular time
 
@@ -23,7 +23,8 @@ human_sim:
 human_eval:
   type: local
   model_config:
-    pretrained_model_name_or_path: mistralai/Mistral-7B-Instruct-v0.3
+    pretrained_model_name_or_path:  /home/s2289391/llama-3.2-1b #/home/s2289391/ministral-3-3b
+
     device_map: 1
     # load_in_8bit: True
     attn_implementation: "flash_attention_2"
@@ -49,7 +50,7 @@ human_eval:
 llm_model:
   type: local
   model_config:
-    pretrained_model_name_or_path: meta-llama/Meta-Llama-3-8B-Instruct
+    pretrained_model_name_or_path: /home/s2289391/llama-3.2-1b
     device_map: 0
     # load_in_8bit: True
     attn_implementation: "flash_attention_2"
